@@ -1,5 +1,15 @@
 module BuildsHelper
 
+  def artifact_path(filename, path)
+    subdir_count = path.count '/'
+    filename.split('/')[subdir_count..-1].join '/'
+  end
+
+  def file_name(path)
+    file = @build.artifact(path)
+    File.basename(file)
+  end
+
   def file_mtime(path)
     file = @build.artifact(path)
     return if File.symlink?(file)
